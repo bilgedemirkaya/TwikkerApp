@@ -1,0 +1,42 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+<div class="container">
+  <h2 class="baslik" id="home"> <a href="{% url 'index' %}"><i class="fas fa-arrow-left"></i></a>{{ profile.firstname }}</h2>
+  <a href="#" ><img class="backpc" src="media/profile_image/minnos.jpg"></a> 
+  <a href="#" ><img src="{{profile.image.url | default:'network/media/profile_image/egg.jpg'}}" class="circle-prof"></a>
+  <div style ="margin-top:260px;"> <h1 class="baslik">{{ profile.firstname }} <img src= "{{'media/profile_image/tick.jpg'}}" width="50px" height="30px;"></h1> <p class="username">@{{user.username}}</p>
+  <p style="font-size: medium;">{{profile.description }}
+  </p>
+  <h6 class="username"> <i class="far fa-calendar-alt"></i> Joined {{ profile.user.date_joined |date:" d F Y"  }} </h3>
+<h3> 0 following 10M followers </h3></div>
+<div class="butondiv">
+<button id='userposts' class="butonlar butonactive" > Tweeks </button> 
+<button id='likedposts' class="butonlar"> Likes </button>
+</div>
+<script type="text/javascript">
+$(document).on('click','div button',function(){
+  $(this).addClass('butonactive').siblings().removeClass('butonactive')
+});
+</script>
+<div class="posted">
+  {% for post in userposts %}
+  <div class="post">
+    <br>
+    <p class="username" style="float:right">{{post.timestamp}} </p>
+    <a href="#" ><img src="{{post.owner.image.url | default:'network/media/profile_image/egg.jpg'}}" class="rounded-circle"> </a> 
+    <h1 class="baslik" style="display: inline;"> {{ post.owner.firstname }} </h1>
+    <p class="username" style="display: inline;"> @{{ post.owner.user.username }}</p>  
+    <p class="posting"> {{ post.post }} </p>
+    {% if post.post_image %} 
+    <p style="margin-left: 70px;"><img style="width: 200px; height:200px;" src= "{{post.post_image.url}}"></p>
+    {% endif %}
+  </div>
+    {% endfor %}
+  </div>
+  <div class="likes">
+    <br>
+     hsijdij mesela likladiklarim 
+  </div>
+</div>
+{% endblock %} 
