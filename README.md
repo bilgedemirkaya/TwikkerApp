@@ -25,6 +25,8 @@ Django Framework in the back-end,Javascript for the for the front-end developmen
 https://medium.com/@bilgedemirkaya/how-to-create-simple-popup-modal-in-django-using-css-js-76ab7153fe00
 https://medium.com/@bilgedemirkaya/how-to-get-twitter-trends-api-to-django-project-using-tweepy-d0343761f32a
 https://medium.com/@bilgedemirkaya/django-typeerror-field-id-expected-a-number-but-got-datetime-datetime-2020-d9a5c1cddc98
+
+## How it looks?
 ![alt text](https://github.com/bilgedemirkaya/TwikkerApp/blob/master/indexpage.JPG)
 ![alt text](https://github.com/bilgedemirkaya/TwikkerApp/blob/master/profilepage.JPG)
 
