@@ -1,0 +1,115 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+<div class="container">
+  <!-- Profile info -->
+  <h2 class="baslik" id="home"> <a href="{% url 'index' %}"><i class="fas fa-arrow-left"></i></a>{{ profile.firstname }}</h2>
+  <a href="#" ><img class="backpc" src="media/profile_image/minnos.jpg"></a> 
+  <a href="#" ><img src="{{profile.image.url | default:'network/media/profile_image/egg.jpg'}}" class="circle-prof"></a>
+  <div style ="margin-top:260px;"> <h1 class="baslik">{{ profile.firstname }} <img src= "media/profile_image/tick.jpg" width="50px" height="30px;"> </h1><p class="username">@{{profile.user.username}}</p>
+  <p style="font-size: medium;">{{profile.description }}
+  </p>
+  <h6 class="username"> <i class="far fa-calendar-alt"></i> Joined {{ profile.user.date_joined |date:" d F Y"  }} </h3>
+<h3> <button id="fsBtn"> {{ followers.count }} </button> following <button id="fBtn">{{ following.count }} </button> followers 
+  <button id="msjBtn" type="button"><i class="fas fa-envelope msjkutu"></i></button>
+<form class="f-form" action="{% url 'follow' profile.user.id %}" method="GET" name="followed"> {%if is_following %}
+  <input class="btn btn-danger follow-button" type="submit" value="Unfollow"> 
+   {% else %}
+   <input class="btn btn-primary follow-button" type="submit" value="Follow"> 
+   {% endif %}
+   </form></h3> </div>
+
+   <!--  message modal -->
+<div class="msj-modal">
+  <div class="msj-content">
+    <h2 class="baslik"></a>Send message to {{ profile.firstname }}</h2> <div class="f-mclose">+</div>
+    <hr style="color:black">
+   <form action="{% url 'sendit' profile.user.id %}" method="POST">
+     <textarea rows=6 cols=50 class="msjbox" name="content"></textarea>
+     <input type="submit" value="Send message" id="msj-send">
+   </form>
+  </div>
+</div>
+<!-- following modal ended -->
+<!--  following modal -->
+<div class="fs-modal">
+  <div class="fscontent">
+    <h2 class="baslik"><i class="fas fa-arrow-left"></i></a>Following</h2> <div class="fsclose">+</div>
+    <hr style="color:black">
+    {% for user in followers %}
+   <img src="{{user.following.profile.image.url}}" class="rounded-circle"> <a href="{% url 'other_profiles' user.following.username %}'" class=" baslik posta"> {{ user.following.profile.firstname }}</a>
+   <p class="username"> @{{user.following.username }} </p>
+   <hr style="color:black">
+ {% endfor %} 
+  </div>
+</div>
+<!-- following modal ended -->
+
+<!-- followers modal -->
+<div class="fg-modal">
+  <div class="fcontent">
+    <h2 class="baslik"><i class="fas fa-arrow-left"></i></a>Followed by</h2> <div class="fclose">+</div>
+    <hr style="color:black">
+    {% for user in following %}
+   <img src="{{user.follower.profile.image.url | default:'media/profile_image/egg.jpg'}} " class="rounded-circle"> <a href="{% url 'other_profiles' user.follower.username %}" class=" baslik posta"> {{ user.follower.profile.firstname }}</a>
+   <p class="username"> @{{user.follower.username }} </p>
+   <hr style="color:black">
+ {% endfor %} 
+  </div>
+</div>
+<!-- Followers modal ended -->
+
+<div class="butondiv">
+<button id='userposts' class="butonlar butonactive" > Tweeks </button> 
+<button id='likedposts' class="butonlar"> Likes </button>
+</div>
+<script type="text/javascript">
+$(document).on('click','div button',function(){
+  $(this).addClass('butonactive').siblings().removeClass('butonactive')
+});
+</script>
+<div class="posted">
+  {% for post in userposts %}
+  <div class="post">
+    <br>
+    <div onclick='location.href="{% url 'post' post.id %}";' style="cursor: pointer;">
+    <p class="username" style="float:right">{{post.timestamp}} </p>
+    <a href="#" ><img src="{{post.owner.image.url | default:'network/media/profile_image/egg.jpg'}}" class="rounded-circle"> </a> 
+    <h1 class="baslik" style="display: inline;"> {{ post.owner.firstname }} </h1>
+    <p class="username" style="display: inline;"> @{{ post.owner.user.username }}</p>  
+    <p class="posting"> {{ post.post }} </p>
+    {% if post.post_image %} 
+    <p style="margin-left: 70px;"><img style="width: 200px; height:200px;" src= "{{post.post_image.url}}"></p>
+    {% endif %}
+    <i class="far fa-comment-dots" style="font-size:medium;"></i> <i style="font-size:medium;" class="fas fa-retweet"></i> 
+    {% if user in post.likes.all %}
+    <i style="font-size:medium;" class="like__icon fa fa-heart liked" style="display: inline;"><span style="font-size:small;margin-left :8px;">{{post.likes.count}}</span></i> 
+    {% else %}
+    <i style="font-size:medium;" class="like__icon fa fa-heart" style="display: inline;"><span style="font-size:small;margin-left :8px;">{{post.likes.count}}</span></i> 
+    {% endif %}
+    <i style="font-size:medium;" class="fas fa-external-link-alt"></i>
+  </div></div>
+    {% endfor %}
+  </div>
+  <div class="likes">
+    <br>
+    {% for post in likedposts %}
+    <div class="post">
+     <br>
+     <div onclick='location.href="{% url 'post' post.id %}";' style="cursor: pointer;">
+     <p class="username" style="float:right">{{post.post.timestamp}} </p>
+     <a href="{% url 'other_profiles' post.post.owner.user.username %}" ><img src="{{post.post.owner.image.url | default:'network/media/profile_image/egg.jpg'}}" class="rounded-circle"> </a> 
+     <h1 class="baslik" style="display: inline;"> {{ post.post.owner.firstname }} </h1>
+     <p class="username" style="display: inline;"> @{{ post.post.owner.user.username }}</p>  
+     <p class="posting"> {{ post.post.post }} </p>
+     {% if post.post.post_image %} 
+     <p style="margin-left: 70px;"><img style="width: 200px; height:200px;" src= "{{post.post.post_image.url}}"></p>
+     {% endif %}
+     <i class="far fa-comment-dots" style="font-size:medium;"></i> <i style="font-size:medium;" class="fas fa-retweet"></i> 
+     <i style="font-size:medium;" class="like__icon fa fa-heart liked" style="display: inline;"><span style="font-size:small;margin-left :8px;">{{post.likes.count}}</span></i> 
+     <i style="font-size:medium;" class="fas fa-external-link-alt"></i>
+   </div></div>
+     {% endfor %}
+  </div>
+</div>
+{% endblock %} 

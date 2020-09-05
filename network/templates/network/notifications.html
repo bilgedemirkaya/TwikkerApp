@@ -1,0 +1,29 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+<div class="container">
+  <h2 class="baslik" id="home"> Notifications </h2>
+  <div class="container">
+      <br><br>
+  {% for f in following reversed %}
+  <div class="p-block">
+  <img src="{{f.follower.profile.image.url}}" class="rounded-circle"><h4> <a href="{% url 'other_profiles' f.follower %}" class="posta"> @{{ f.follower }} </a>  followed you {{f.timestamp | timesince}} ago. </h4> 
+<hr>
+  <br>
+</div>
+  {% endfor %} 
+ {% for a in liked reversed %}
+ <div class="p-block" onclick='location.href="{% url 'post' a.post.id %}";' style="cursor: pointer;">
+ <h4> <img src="{{a.liker.profile.image.url}}" class="rounded-circle"><a href="{% url 'other_profiles' a.liker  %}" class="posta"> <i class="like__icon fa fa-heart liked" style="display: inline;font-size:medium;margin-left:0px;"></i> @{{ a.liker }} </a> liked your post {{a.timestamp | timesince }} ago. </h4>
+ <hr>
+ <p class="posting">{{a.post.post}}</p>
+ {% if a.post.post_image %} 
+    <p class="posting" style="margin-left:50px;"><img style="width: 80px; height:80px;" src= "{{a.post.post_image.url}}"></p>
+  {% endif %}
+  </div>
+  {% endfor %}
+</div>
+
+</div>
+
+{% endblock %}

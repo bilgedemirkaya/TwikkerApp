@@ -1,18 +1,16 @@
 {% extends "network/layout.html" %}
-
 {% block body %}
 <div class="container">
   <h2 class="baslik" id="home"> Home </h2>
   <div class="tweetsec">
-    <form action="{% url 'tweek' %}"method="post" enctype="multipart/form-data" >
+    <form action="{% url 'tweek' %}"method="post" enctype="multipart/form-data">
       {% csrf_token %}
-      <img src="{{ user.profile.image.url | default:'media/profile_image/egg.jpg'}}" alt ="pp" class="rounded-circle"><input type="text" class="twik" name="post" placeholder="What's Happening?">
+      <img src="{{ user.profile.image.url | default:'media/profile_image/egg.jpg'}}" alt ="pp" class="rounded-circle" style="margin-left:20px;"><input type="text" class="twik" name="post" placeholder="What's Happening?">
       <br>
       <div class='fileUpload'>
         <label for="file-input">
           <i class="far fa-image"> </i>
       </label>
-  
       <input id="file-input" type="file" name="image">
     </div>
       <div class='fileUpload'>
@@ -37,19 +35,25 @@
   {% for post in allposts %}
   <div class="post">
     <br>
-    <p class="username" style="float:right"> {{post.timestamp | timesince}} </p> 
-    <a class="posta" href="{% url 'other_profiles' post.owner.user.username %}" ><img src="{{post.owner.image.url | default:'media/profile_image/egg.jpg'}}" class="rounded-circle"> </a> 
+    <p class="username time" style="float:right"> {{post.timestamp | timesince}} </p> 
+    <a class="posta" href="{% url 'other_profiles' post.owner.user.username %}" ><img src="{{post.owner.image.url | default:'media/profile_image/egg.jpg'}}" class="rounded-circle" style="margin-left:20px;"> </a> 
     <div onclick='location.href="{% url 'post' post.id %}";' style="cursor: pointer;">
     <a class="posta" href="{% url 'other_profiles' post.owner.user.username %}" ><h1 class="baslik" style="display: inline;"> {{ post.owner.firstname }} </h1> </a>
     <a class="posta" href="{% url 'other_profiles' post.owner.user.username %}" ><p class="username" style="display: inline;"> @{{ post.owner.user.username }}</p>  </a>
-    <p class="posting"> {{ post.post }} </p>
+    <p class="posting" style="margin-bottom:20px;"> {{ post.post }} </p>
     {% if post.post_image %} 
     <p style="margin-left: 70px;"><img style="width: 200px; height:200px;" src= "{{post.post_image.url}}"></p>
     {% endif %}
+    <i class="far fa-comment-dots" style="font-size:medium;"></i> <i style="font-size:medium;" class="fas fa-retweet"></i> 
+    {% if user in post.likes.all %}
+    <i style="font-size:medium;" class="like__icon fa fa-heart liked" style="display: inline;"><span style="font-size:small;margin-left :8px;">{{post.likes.count}}</span></i> 
+    {% else %}
+    <i style="font-size:medium;" class="like__icon fa fa-heart" style="display: inline;"><span style="font-size:small;margin-left :8px;">{{post.likes.count}}</span></i> 
+    {% endif %}
+    <i style="font-size:medium;" class="fas fa-external-link-alt"></i>
   </div>
 </div> 
     {% endfor %}
- 
 </div>
 </div>
 {% endblock %}

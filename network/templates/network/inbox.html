@@ -1,0 +1,79 @@
+{% extends "network/layout.html" %}
+{% block body %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('#inbox-view').innerHTML = `<p class="baslik" style="margin:20px;">Messages</p> `;
+    fetch('/loadbox')
+    .then(response => response.json())
+    .then(messages => {
+     messages.forEach(message => {
+    let msection = document.createElement("div"); //create a clickable area
+    let content = `<a href="#" class="posta"><img src="${message.senderimage}" class="rounded-circle">
+                        <h4> ${message.sendername}</h4> 
+                        <p style="display:inline;"> @${message.sender}</p>  <p class="posta" id="myMessage"> ${message.content}</p> </a>                
+                     <br> <br>
+                     <hr>`;
+  
+    msection.innerHTML = content; //set its content
+    msection.setAttribute('class','msec'); //set its style
+    msection.href ="#"; // make it clickable  
+    document.querySelector('#inbox-view').append(msection);
+    
+    
+    if (!message.read) {
+    msection.style.backgroundColor = "#e8e7e3"
+    }
+    msection.onclick = function (e) { // when clicked
+      fetch(`/loadbox/${message.id}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            read: true
+        })
+    }); 
+    fetch(`/loadbox/${message.id}`) 
+    .then(response => response.json())
+    .then(dialog => {
+        let detailcontent=`<div class="hepsi">
+        <div class="sender">
+        <img src="${dialog.senderimage}" class="rounded-circle"><h3>${dialog.sendername}</h3><br>
+         @${dialog.sender}</div> 
+        <p class="posting msj"> ${dialog.content}</p>
+        ${dialog.replies.map(reply => 
+                    `<p class="posting rep">${reply}</p>`
+                ).join('')}
+         <br> 
+         <div class="m-form">
+         <form class="form-control">
+         <input class="msj-i" type="text" placeholder="Start a new message"></input>
+         <input type="submit" value="Send" class="msj-s"></input>
+         </form> </div></div>` ;
+        document.querySelector('#message-view').innerHTML=detailcontent;
+        document.querySelector('.msj-s').onclick = function() {
+            sender=`${dialog.sender}`
+            reply_message(sender);
+            }
+        })
+    }
+    });
+    })
+
+    function reply_message(sender){
+        const inpt = document.querySelector('.msj-i').value;
+        fetch('/directmessages', {
+            method: 'POST',
+            body: JSON.stringify({
+                content:inpt,
+                receiver:sender
+            })
+    })
+    }
+});
+</script>
+<div class="row">
+<div id="inbox-view" class="col-sm"></div>
+
+<div id="message-view" class="col-sm thirdcol">
+    {{dics}}
+</div>
+</div>
+{% endblock %}

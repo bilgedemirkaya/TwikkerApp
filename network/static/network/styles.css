@@ -1,4 +1,6 @@
-
+body{
+    font-family: “Helvetica Neue”,Helvetica,Arial,sans-serif;
+}
 .nav-items {
     font-size:large;
     font-weight: bold;
@@ -282,20 +284,7 @@ background-color: white;
     color: black;
     text-decoration: none !important;
 }
-.kalp{
-    width: 50px;
-    height: 63px;
-    cursor: pointer;
-  }
-  .kalp{
-      border:none;
-      content: none;
-      background-image: url('http://i.resimyukle.xyz/aM8UN.png');
-  }
-  input:checked + .kalp{
-      background-position: -2800px 0;
-      transition: background 0.8s steps(28);
-  }
+
   .trendname {
       font-weight: bold;
       text-decoration: none;
@@ -309,3 +298,384 @@ background-color: white;
     color:black;
     font-size: medium;
   }
+  #myBtn{
+      margin-left:150px;
+
+  }
+  .bg-modal{
+      width: 100%;
+      height:100%;
+      background-color: rgba(0,0,0,0.5);
+      position: absolute;
+      top:0px;
+      z-index: 1;
+      display: none; 
+      justify-content: center; /*center horizontally*/
+      align-items: center ; /* center vertically */
+
+  }
+
+  .modal-content{
+      width:600px;
+      height:300px;
+      background-color: white;
+      border:none;  
+      border-radius: 15px;
+      padding:15px;
+      position: relative;
+  }
+  .close{
+      position: absolute;
+      top:5px;
+      right: 14px;
+      font-size:25px;
+      transform: rotate(45deg);
+      cursor: pointer;
+  }
+  #likebutton{
+      position: absolute;
+      right: 120px;
+  }
+  .bg{
+    width: 100%;
+    height:100%;
+    background-color: rgba(0,0,0,0.1);
+    position: absolute;
+    top:50px;
+    z-index: 1;
+    display: none;
+    justify-content: center; /*center horizontally*/
+
+}
+
+.mcontent{
+    width:400px;
+    height:fit-content;
+    background-color: white;
+    border:none;  
+    border-radius: 15px;
+    padding:15px;
+    position: relative;
+}
+.lclose{
+    position: absolute;
+    top:5px;
+    right: 14px;
+    font-size:30px;
+    transform: rotate(45deg);
+    cursor: pointer;
+}
+#likeBtn{
+    border: none;
+    margin-left: 22px;
+    background-color: white;
+    font-size: medium;
+    color: rgb(197, 50, 119);
+    font-weight: bold;
+}
+
+.fg-modal{
+    width: 100%;
+    height:100%;
+    background-color: rgba(0,0,0,0.1);
+    position: absolute;
+    top:400px;
+    z-index: 1;
+    display: none;
+    justify-content: center; /*center horizontally*/
+
+}
+
+.fcontent{
+    width:400px;
+    height:fit-content;
+    background-color: white;
+    border:none;  
+    border-radius: 15px;
+    padding:15px;
+    position: relative;
+}
+.fclose{
+    position: absolute;
+    top:5px;
+    right: 14px;
+    font-size:30px;
+    transform: rotate(45deg);
+    cursor: pointer;
+}
+#fBtn{
+    border: none;
+    margin-left: 22px;
+    background-color: white;
+    font-size: medium;
+    color: rgb(197, 50, 119);
+    font-weight: bold;
+}
+/* followers modal */
+.fs-modal{
+    width: 100%;
+    height:100%;
+    background-color: rgba(0,0,0,0.1);
+    position: absolute;
+    top:400px;
+    z-index: 1;
+    display: none;
+    justify-content: center; /*center horizontally*/
+
+}
+
+.fscontent{
+    width:400px;
+    height:fit-content;
+    background-color: white;
+    border:none;  
+    border-radius: 15px;
+    padding:15px;
+    position: relative;
+}
+.fsclose{
+    position: absolute;
+    top:5px;
+    right: 14px;
+    font-size:30px;
+    transform: rotate(45deg);
+    cursor: pointer;
+}
+#fsBtn{
+    border: none;
+    margin-left: 22px;
+    background-color: white;
+    font-size: medium;
+    color: rgb(197, 50, 119);
+    font-weight: bold;
+}
+.follow-button {
+    color: #ff6a00;
+    font-family: "Helvetica";
+    font-size: 10pt;
+    background-color: #ffffff;
+    border: 1px solid;
+    border-color: #ff6a00;
+    border-radius: 3px;
+    width: 85px;
+    height: 30px;
+    position: absolute;	 
+    top: 434px;
+    left: 450px;	
+    cursor: hand;		    
+  }
+  .like__btn {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    max-width: 80px;
+    display: flex;
+    align-items: center;
+}
+
+.like__icon {
+    font-size: 3.2rem;
+    margin-right: 0.3rem;
+}
+.like__icon.liked {
+    color: #ff6a00;
+}
+
+.p-block{
+border: 1px solid rgb(236, 169, 169);
+border-bottom:none;
+border-top:none;
+border-radius: 40px;
+padding: 25px;
+background-color:rgba(233, 211, 211, 0.308);
+}
+.msec{
+border-radius:30px;
+}
+
+#myMessage{
+    margin-left:150px;
+    display:inline;
+    font-size:medium;
+    opacity:0.7
+}
+.sender{
+    padding:30px;
+    border-radius: 1px;
+    box-shadow: 0px 0px 0px 1px rgba(173, 155, 155, 0.3);
+    margin-bottom:40px;
+}
+.hepsi{
+    border-radius: 1px;
+    border:1px solid rgba(173, 155, 155, 0.3);
+    border-bottom:none;
+}
+.msj{
+    background-color:rgb(190, 188, 188);
+    border-radius: 40px;
+    border:none;
+    margin-bottom:20px;
+}
+.msj-i{
+    display:inline;
+    border:none;
+    outline: none;
+    font-size:medium;
+    opacity: 0.6;
+    position: relative;
+}
+.msj-s{
+    display: inline;
+    border:none;
+    outline: none;
+    font-size:medium;
+    opacity: 0.6;
+    position: relative;
+}
+.rep{
+    background-color:rgba(199, 159, 136, 0.358);
+    border-radius:25px;
+    border:none;
+    padding: 10px;
+    text-align: end;
+}
+.m-form{
+
+    position:absolute;
+    top:550px;
+}
+
+@media screen and (max-width: 1290px){
+    .thirdcol{
+    display: none;
+}
+}
+@media screen and (max-width: 1010px){
+    .tweekbutton,.dropdown{
+        display: none;
+    }
+.nav-items{
+    font-size:small;
+    font-weight: normal;
+    letter-spacing:0px;
+    margin:0px;
+    float: left;
+
+}
+.nav-items :hover{
+    font-weight:normal; 
+    color: #fc8200;
+    background-color: #f7d6b1;
+}
+.hde{
+display: none;
+}
+.fa-hashtag{
+    display: none;
+}
+.fa-bell,.fa-envelope,.fa-user,.fa-house-damage{
+    font-size: 0.9em;
+}
+}
+@media screen and (max-width: 500px){
+    .time{
+        display: none;
+    }
+    .fa-retweet,.fa-external-link-alt{
+        display: none;
+    }
+    
+}
+.msjkutu{
+    color:#ff6a00;
+    font-size:1.3em;
+}
+#msjBtn{
+    border-color:#ff6a00;
+    border-radius: 25px;
+    outline: none;
+    background-color:white;
+    margin-left:120px;
+}
+.msjBtn :hover{
+    color: #fc8200e8;
+}
+.msj-modal{
+    width: 100%;
+      background-color: rgba(0, 0, 0, 0.3);
+      position: absolute;
+      top:350px;
+      z-index: 1;
+      display: none; 
+      justify-content: center; /*center horizontally*/
+      
+}
+.msj-content{
+    width:600px;
+    height:300px;
+    background-color: rgb(247, 238, 231);
+    border:none;  
+    border-radius: 15px;
+    padding:15px;
+    position: relative;
+}
+.f-mclose{
+    position: absolute;
+    top:5px;
+    right: 14px;
+    font-size:25px;
+    transform: rotate(45deg);
+    cursor: pointer;
+}
+.msjbox{
+    margin:20px;
+    border:none;
+    border-radius: 10px;
+    outline: none;
+    background-color:white;
+    font-size:medium;
+}
+#msj-send{
+    padding:5px;
+    border-radius:15px;
+    font-size:medium;
+    float:right;
+    background-color: #ff6a00;
+    color:white;
+    border-color:#ff6a00;
+}
+.delete{
+    float:right;
+    position: absolute;
+    top:55px;
+    right: 35px;
+    font-size:25px;
+    transform: rotate(45deg);
+    cursor: pointer;
+    border:none;
+    outline:none;
+    background-color:white;
+}
+.delete-modal{
+    
+      position: absolute;
+      top:150px;
+      z-index: 1;
+      display: none; 
+      right:250px;
+      
+}
+.delcontent{
+    background-color:rgb(231, 231, 231);
+    width:300px;
+    height:100px;
+    border-radius: 15px;
+    padding:15px;
+    position: relative;
+    text-align: center ;
+}
+#del,#cancel{
+padding:10px;
+margin:10px;
+display: inline;
+}

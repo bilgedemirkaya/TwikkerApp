@@ -5,7 +5,7 @@
   <h2 class="baslik" id="home"> <a href="{% url 'index' %}"><i class="fas fa-arrow-left"></i></a> Tweek </h2>
     <br>
     <a href="{% url 'other_profiles' post.owner.user.username %}"><img src="{{post.owner.image.url | default:'media/profile_image/egg.jpg'}}" class="rounded-circle" style="margin-left: 25px;"> </a> 
-    <h1 class="baslik" style="display: inline;"> {{ post.owner.firstname }} </h1>
+    <h1 class="baslik" style="display: inline;"> {{ post.owner.firstname }} </h1> {% if post.owner.user.id == request.user.id %} <button class="delete">+</button> {% endif %}
     <p class="username"> @{{ post.owner.user.username }}</p>  
     <p class="posting" style="margin-left: 20px;"> {{ post.post }} </p>
     {% if post.post_image %} 
@@ -15,17 +15,46 @@
     <hr style="width: 90%;">
     <a href="#" class="username posta" style="margin-left: 25px;"> <i class="far fa-chart-bar"></i> View Tweet Activity </a>
     <hr style="width: 90%;">
-    <i class="far fa-comment-dots"></i> <i class="fas fa-retweet"></i> <i class="fas fa-external-link-alt"></i>
-    {% for user in likes %}
-    <a href="#">{{ forloop.counter }}</a>
-    {% endfor %} 
     
-    <form action="{% url 'like' post.id %}"method="get" enctype="multipart/form-data">
+    <button id="likeBtn"> {{ likes.count }} <span style="font-weight: normal;"> Likes </span></button>
+    <!-- Likes Modal -->
+    <div class="bg">
+      <div class="mcontent">
+        <h2 class="baslik"> <a href="{% url 'post' post.id %}"><i class="fas fa-arrow-left"></i></a>Liked by</h2> <div class="lclose">+</div>
+        <hr style="color:black">
+        {% for user in likes %}
+       <img src="{{user.profile.image.url}}" class="rounded-circle"> <a href="{% url 'other_profiles' user.username %}" class=" baslik posta"> {{ user.profile.firstname }}</a>
+       <p class="username"> @{{user.username }} </p>
+       <hr style="color:black">
+     {% endfor %} 
+      </div>
+    </div>
+    <!--Likes modal ended -->
+    <!-- Delete Post Modal-->
+    <div class="delete-modal">
+      <div class="delcontent">
+       
+        <h3>Do you want to delete this post?</h3>
+        <form action="{% url 'delete' post.id %}" method="POST" style="display: inline;">
+          <button id="del"class="btn btn-danger" type="submit">Delete</button>   
+        </form>
+        <button id="cancel" class="btn btn-light" type="button">Cancel</button>
+      </div>
+    </div>
+    <!-- Delete Modal Ended-->
+    <hr style="width: 90%;">
+    <i class="far fa-comment-dots"></i> <i class="fas fa-retweet"></i> <i class="fas fa-external-link-alt"></i>
+    <form action="{% url 'like' post.id %}" method="GET" style="display: inline;" name="liked" class="l-form">
       {% csrf_token %}
-    <label>
-        <input type="checkbox" name="liked" id="liked" hidden>
-       <input type="submit" hidden></input>
-      </label>
-    </form>  
+      {% if is_liked %}
+        <button style="display: inline;" class="like__btn animated" >
+          <i class="like__icon fa fa-heart liked" style="display: inline;"></i> 
+        </button>
+        {% else %}
+        <button style="display: inline;" class="like__btn animated">
+          <i class="like__icon fa fa-heart" style="display: inline;"></i> 
+        </button>
+        {% endif %}
+    </form>
 </div>
 {% endblock %}

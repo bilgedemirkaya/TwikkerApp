@@ -15,7 +15,10 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+{% block head %}
+{% endblock %}
         
     </head>
     <body>
@@ -27,7 +30,7 @@
       {% endif %}
     </ul>
             <div class="row">
-              <div style="width: 400px;">
+              <div style="width: 25%;" class="firstcol">
                 {% if user.is_authenticated %}
                 <ul class="nav flex-column" style="width:fit-content">
                   <div style="margin-left: 120px;">
@@ -40,21 +43,20 @@
               <!-- Highlight current page in navbar --> 
               {% with url_name=request.resolver_match.url_name %}
                     <li class="nav-items {% if url_name == 'index' %}active{% endif %}"> 
-                        <a class="nav-link" href="{% url 'index' %}"> <i class="fas fa-house-damage"></i> Home</a>
+                        <a class="nav-link" href="{% url 'index' %}"> <i class="fas fa-house-damage"></i><span class="hde">Home</span></a>
                     </li>
-                    <li class="nav-items ">
-                        <a class="nav-link" href="#"> <i class="fa fa-hashtag" aria-hidden="true"></i> Following </a>
+                    <li class="nav-items {% if url_name == 'explore' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'explore' %}"> <i class="fa fa-hashtag"></i><span class="hde">Explore</span></a>
                     </li>
-                    <li class="nav-items ">
-                   
-                      <a class="nav-link" href="#"><i class="fas fa-bell"></i> Notifications</a>
+                    <li class="nav-items {% if url_name == 'notifications' %}active{% endif %}">                  
+                      <a class="nav-link" href="{% url 'notifications' %}"><i class="fas fa-bell"></i><span class="hde">Notifications</span></a>
                     </li> 
-                    <li class="nav-items">
+                    <li class="nav-items {% if url_name == 'inbox' %}active{% endif %}">
                      
-                      <a class="nav-link" href="#"> <i class="fas fa-envelope"></i> Messages</a>
+                      <a class="nav-link" href="{% url 'inbox' %}"> <i class="fas fa-envelope"></i><span class="hde">Messages</span></a>
                     </li>
                     <li class="nav-items {% if url_name == 'profile' %}active{% endif %}">
-                      <a class="nav-link" href="{% url 'profile' %}"> <i class="fas fa-user"></i> Profile</a>
+                      <a class="nav-link" href="{% url 'profile' %}"> <i class="fas fa-user"></i> <span class="hde">Profile</span></a>
                     </li>     
                   </div> 
                   {% endwith %}
@@ -66,30 +68,53 @@
       
                   {% endif %}
                  {% if user.is_authenticated %}
-                  <div class="dropdown">
-                     <button class="tweekbutton" id="mainbutton" onclick="location.href='{% url 'twikat' %}';">Tweek</button>
-                    {%if user.profile.image %}  
-                  <button onclick="myFunction()" class="profilebutton" id="prbut"><img src="{{ user.profile.image.url | default:'network/media/profile_image/egg.jpg'}}" alt ="pp" class="rounded-circle" style="width:80px;height:80px;float:left;"><h3 class="pr">
+                 
+                 <button class="tweekbutton" id="myBtn">Tweek</button>
+                 <div class="bg-modal">
+                   <div class="modal-content">
+                    <div class="close">+</div>
+                    <hr style="color:black">
+                    
+                    <form action="{% url 'tweek' %}"method="post" enctype="multipart/form-data" >
+                        {% csrf_token %}
+                        <img src="{{ user.profile.image.url | default:'media/profile_image/egg.jpg'}}" alt ="pp"  class="rounded-circle"><textarea rows="5" class="twik" name="post"> What's Happening? </textarea>
+                        <br>
+                        <div class='fileUpload' style="margin-left: 90px;">
+                          <label for="file-input">
+                              <i class="far fa-image"> </i>
+                          </label>
+                      
+                          <input id="file-input" type="file" name="image">
+                      </div>
+                          <div class='fileUpload'>
+                          <label for="file-input">
+                              <i class="fas fa-poll"></i>
+                          </label>
+                          <input id="file-input" type="file">
+                          </div>
+                          <div class='fileUpload'>
+                          <label for="file-input">
+                              <i class="far fa-smile-beam"></i>
+                          </label>
+                      
+                          <input id="file-input" type="file">
+                          </div>      
+                        <button type="submit" class="tweekbutton" style="width:100px;float:right;margin:0;">Tweek</button>
+                    </form>
+                   </div>
+                  </div>
+               
+              <div class="dropdown">
+                  
+                  <button onclick="myFunction()" class="profilebutton" id="prbut"><img src="{{ user.profile.image.url | default:'media/profile_image/egg.jpg'}}" alt ="pp" class="rounded-circle" style="width:80px;height:80px;float:left;"><h3 class="pr">
                       {{ name | title }} </h6> <p class ="username"> @{{user.username}} </p> </button>
                     <div id="myDropdown" class="dropdown-content">
-                      <a class="profilebutton" style="width:275px;"><img src="{{ user.profile.image.url | default:'network/media/profile_image/egg.jpg'}}" alt ="pp" class="rounded-circle" style="width:60px;height:60px;float:left;"><h3 class="pr">
+                      <a class="profilebutton" style="width:275px;"><img src="{{ user.profile.image.url | default:'media/profile_image/egg.jpg'}}" alt ="pp" class="rounded-circle" style="width:60px;height:60px;float:left;"><h3 class="pr">
                           {{ name | title }} <i class="fas fa-check"></i></h3>  <p class ="username"> @{{user.username}}</p> </a>
                         <a href="#">Add an existing account</a>
-                        <a href="{% url 'logout' %}">Log out  @{{ user.username }} </a>
-                      
+                        <a href="{% url 'logout' %}">Log out  @{{ user.username }} </a>        
                       </div>
-
-                      {% else %}
-                      <button onclick="myFunction()" class="profilebutton"><img src="media/profile_image/egg.jpg" alt ="pp" class="rounded-circle" style="float:left;">
-                        {{ name | title }} <p class ="username"> @{{user.username}} </p>
-                        </button>
-                        <div id="myDropdown" class="dropdown-content">
-                          <a class="profilebutton" style="width:250px;"><img src="media/profile_image/egg.jpg" alt ="pp" class="rounded-circle" style="width:40px;height:40px;float:left;"><h3 class="pr">
-                            {{ name | title }}   <i class="fas fa-check"></i></h6> <p class ="username"> @{{user.username}}</p> 
-                          <a href="#">Add an existing account</a>
-                          <a href="{% url 'logout' %}">Log out @{{ user.username }} </a>
-                        </div>
-                      {% endif %}
+                     
                   </div>
                   {% else %}
                   {% with url_name=request.resolver_match.url_name %}
@@ -109,6 +134,7 @@
                 {% endblock %}
               </div> 
               {% if user.is_authenticated %}
+              {% if request.get_full_path != "/inbox" %}
             <div class="col-sm thirdcol">
               <form action = "https://twitter.com/search" class="input-icons">
                 <i class="fa fa-search icon" aria-hidden="true"></i> <input id="search" name="q" type="search" placeholder="Search in Twikker" aria-label="Search">
@@ -118,19 +144,22 @@
               <div class="post">
               {% for trend in trends %}
               
-             
-              {% if trend.tweet_volume %}
               <a href="{{ trend.url }}" class="trendname">{{ trend.name }} </a>
+              {% if trend.tweet_volume %}
               <p class="posting" style="width:max-content"> {{ trend.tweet_volume | get_digit:"2" }}k tweeks </p>
+              {% else %}
+              <p class="posting" style="width:max-content"> trending</p>
               {% endif %}
               <hr>
               {% endfor %}
             </div>
             </div>
+            {%endif%}
             {% else %}
             <div style="display: block;">
             <h1 class="baslik"> Welcome Twikker! </h1>
             <h6> The Most Creative Unique Website that happens in 2020. </h6>
+         
             <img class= "rounded-circle" style="width:60%;height:60%; margin-top: 100px;margin-left: 110px;" src="media/profile_image/back.gif"> 
            </div>
             {% endif %}
