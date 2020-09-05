@@ -5,12 +5,12 @@ Final Project for CS50 Web Development. Its is a same looking-working website wi
 ## Final Project of Cs50s Web Programming with Python and Javascript
 
 This final project is ultimately a combination of 9 weeks lesssons and 5 assignments we have done so far. I created a website with
-Django Framework in the back-end,Javascript for the for the front-end development, in which;
+Django Framework in the back-end with 6 different modals and Javascript for the for the front-end development, in which;
 
 - users can post (with images optionally), 
 - display other users profiles and see their information and profile picture,prevoius posts and previous liked posts,
-- follows them,
-- like their post,
+- follows them, views which users they are following, which users are following them.
+- like their post, view which other users liked their posts
 - and directly message them. 
 - Users can view their previously liked posts in their profile page.
 - Users can delete their own posts.
