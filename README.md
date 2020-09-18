@@ -27,6 +27,9 @@ https://medium.com/@bilgedemirkaya/how-to-get-twitter-trends-api-to-django-proje
 https://medium.com/@bilgedemirkaya/django-typeerror-field-id-expected-a-number-but-got-datetime-datetime-2020-d9a5c1cddc98
 
 ## How it looks?
+
+## Youtube link for demonstration : https://www.youtube.com/watch?v=IDEND7A7MMw&t=204s
+
 ![alt text](https://github.com/bilgedemirkaya/TwikkerApp/blob/master/indexpage.JPG)
 ![alt text](https://github.com/bilgedemirkaya/TwikkerApp/blob/master/profilepage.JPG)
 
